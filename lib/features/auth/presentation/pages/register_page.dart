@@ -48,9 +48,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             horizontal: _maxWidth * 0.08,
                             vertical: _maxHeight * 0.05),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).semiBgColor,
-                          // color: Colors.red,
-                        ),
+                            // color: Theme.of(context).backgroundColor,
+                            // color: Colors.red,
+                            ),
                         child: Form(
                           key: _registerFormKey,
                           child: Column(
@@ -177,7 +177,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                       }
                                     }
                                   },
-                                  color: AppTheme.buttonColor),
+                                  color: AppTheme.primaryColor),
                             ],
                           ),
                         )),

@@ -1,3 +1,4 @@
+import 'package:eventer_app/core/utils/appTheme.dart';
 import 'package:flutter/material.dart';
 
 class InputTheme {
@@ -12,7 +13,7 @@ class InputTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5.0),
-          borderSide: BorderSide(color: Colors.green, width: 1),
+          borderSide: BorderSide(color: AppTheme.semiLightColor, width: 0),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5.0),

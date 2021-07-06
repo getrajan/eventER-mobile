@@ -5,8 +5,10 @@ import 'package:eventer_app/core/utils/form_submission_status.dart';
 import 'package:eventer_app/core/utils/input_theme.dart';
 import 'package:eventer_app/core/utils/solid_button.dart';
 import 'package:eventer_app/core/utils/typograph.dart';
+import 'package:eventer_app/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:eventer_app/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:eventer_app/features/auth/presentation/bloc/password_toggle/password_toggle_cubit.dart';
+import 'package:eventer_app/features/auth/presentation/pages/register_page.dart';
 import 'package:eventer_app/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +45,8 @@ class _LoginPageState extends State<LoginPage> {
                       SnackBar(content: Text(formStatus.error.toString())));
                 }
                 if (formStatus is FormSubmissionSuccessStatus) {
-                  Navigator.pushNamed(context, AppRouter.register);
+                  // Navigator.pushNamed(context, AppRouter.register);
+                  context.read<AuthBloc>()..add(LoggedInEvent());
                 }
               },
               child: CustomScrollView(
@@ -55,9 +58,9 @@ class _LoginPageState extends State<LoginPage> {
                         horizontal: _maxWidth * 0.08,
                         vertical: _maxHeight * 0.05),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).semiBgColor,
-                      // color: Colors.red,
-                    ),
+                        // color: Theme.of(context).semiBgColor,
+                        // color: Colors.red,
+                        ),
                     child: Form(
                       key: _loginFormKey,
                       child: Column(
@@ -78,7 +81,10 @@ class _LoginPageState extends State<LoginPage> {
                           ])),
                           TextButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, AppRouter.register);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => RegisterPage()));
                             },
                             child: RichText(
                                 text: TextSpan(children: [
@@ -140,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                                     }
                                   },
                                   width: _maxWidth,
-                                  color: AppTheme.buttonColor);
+                                  color: AppTheme.primaryColor);
                             },
                           )
                         ],

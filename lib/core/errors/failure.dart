@@ -20,3 +20,7 @@ class ApiFailure extends Failure {
 class NoInternetFailure extends Failure {
   NoInternetFailure({String message = NO_INTERNET_ERROR}) : super(message);
 }
+
+class CacheFailure extends Failure {
+  CacheFailure(String message) : super(message);
+}
