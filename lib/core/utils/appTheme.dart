@@ -33,6 +33,7 @@ class AppTheme {
   static const Color semiLightColor = Color(0xFFf5f5f5);
   static const Color halfLightColor = Color(0xffe0e0e0);
   static const Color redColor = Color(0xFFff1744);
+  static const Color yellowColor = Color(0xFFff8f00);
 
   AppTheme._();
 

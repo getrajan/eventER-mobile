@@ -19,6 +19,7 @@ import 'features/auth/domain/model/user_hive_model.dart';
 import 'package:path_provider/path_provider.dart' as path;
 import 'features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'features/auth/presentation/bloc/password_toggle/password_toggle_cubit.dart';
+import 'features/create/presentation/blocs/event_details_fill/event_details_fill_cubit.dart';
 import 'injection_container.dart' as di;
 
 void main() async {
@@ -45,7 +46,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<PasswordToggleCubit>(create: (_) => PasswordToggleCubit()),
         BlocProvider<TabbarCubit>(create: (_) => getIt<TabbarCubit>()),
         BlocProvider<AuthBloc>(
-            create: (_) => getIt<AuthBloc>()..add(AppStartedEvent()))
+            create: (_) => getIt<AuthBloc>()..add(AppStartedEvent())),
+        BlocProvider(lazy: true, create: (_) => getIt<EventDetailsFillCubit>()),
       ],
       child: EventErApp(),
     );
@@ -64,22 +66,8 @@ class EventErApp extends StatelessWidget {
             builder: (context, state) {
               return MaterialApp(
                 builder: DevicePreview.appBuilder,
-                theme: AppTheme.darkTheme,
-                // initialRoute: context.select(
-                //   (AuthBloc authBloc) {
-                //     print("******auth sate ${authBloc.state}");
-                //     if (authBloc.state is UnAuthenticatedState) {
-                //       print("this is call");
-                //       return AppRouter.login;
-                //     } else if (authBloc.state is AuthLoadingState) {
-                //       return AppRouter.splash;
-                //     } else if (authBloc.state is AuthenticatedState) {
-                //       return AppRouter.eventEr;
-                //     } else {
-                //       return "register";
-                //     }
-                //   },
-                // ),
+                theme: AppTheme.lightTheme,
+
                 home: context.select(
                   (AuthBloc authBloc) {
                     if (authBloc.state is UnAuthenticatedState) {
@@ -93,7 +81,6 @@ class EventErApp extends StatelessWidget {
                     }
                   },
                 ),
-                // initialRoute: routes(state),
                 themeMode: context.select(
                     (ThemeCubit themeCubit) => themeCubit.state.themeMode),
                 // onGenerateRoute: AppRouter.onGenerateRoute,
@@ -107,9 +94,7 @@ class EventErApp extends StatelessWidget {
   }
 
   String routes(AuthState state) {
-    print("****$state");
     if (state is UnAuthenticatedState) {
-      print("this is call");
       return AppRouter.login;
     } else if (state is AuthLoadingState) {
       return AppRouter.splash;
