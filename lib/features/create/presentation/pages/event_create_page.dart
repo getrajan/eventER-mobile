@@ -4,7 +4,10 @@ import 'package:eventer_app/core/utils/appTheme.dart';
 import 'package:eventer_app/core/utils/typograph.dart';
 import 'package:eventer_app/core/widgets/top_bar.dart';
 import 'package:eventer_app/features/create/domain/model/event_category.dart';
+import 'package:eventer_app/features/create/presentation/blocs/change_page/change_page_cubit.dart';
 import 'package:eventer_app/features/create/presentation/blocs/event_details_fill/event_details_fill_cubit.dart';
+import 'package:eventer_app/features/create/presentation/blocs/location_form/location_form_cubit.dart';
+import 'package:eventer_app/features/create/presentation/blocs/photo_stepper/photo_stepper_bloc.dart';
 import 'package:eventer_app/features/create/presentation/blocs/select_one/select_one_cubit.dart';
 import 'package:eventer_app/features/create/presentation/pages/event_detail_create_page.dart';
 import 'package:eventer_app/features/create/presentation/widgets/event_type.dart';
@@ -40,7 +43,6 @@ class _EventCreatePageState extends State<EventCreatePage> {
     return MultiBlocProvider(
         providers: [
           BlocProvider<SelectOneCubit>(create: (_) => getIt<SelectOneCubit>()),
-          BlocProvider(create: (_) => getIt<EventDetailsFillCubit>()),
         ],
         child: BlocListener<SelectOneCubit, SelectOneState>(
           listener: (context, state) {
@@ -70,7 +72,6 @@ class _EventCreatePageState extends State<EventCreatePage> {
                       Container(
                         constraints:
                             BoxConstraints(maxHeight: _maxHeight * 0.9),
-                        // color: AppTheme.yellowColor,
                         child: CustomScrollView(
                           slivers: [
                             SliverToBoxAdapter(
@@ -78,8 +79,6 @@ class _EventCreatePageState extends State<EventCreatePage> {
                                 constraints:
                                     BoxConstraints(maxHeight: _maxHeight * 0.9),
                                 child: ListView(
-                                  // mainAxisAlignment: MainAxisAlignment.start,
-                                  // crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       "Select Type",

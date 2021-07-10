@@ -16,6 +16,7 @@ class DateInputWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<EventDetailsFillCubit, EventDetailsFillState>(
+      buildWhen: (current, next) => true,
       builder: (context, state) {
         String? dateValue;
         String? hint = dateTimeEnum.value;

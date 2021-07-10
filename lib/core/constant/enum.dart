@@ -46,3 +46,22 @@ extension DateTimeEnumExtension on DateTimeEnum {
   String? get key => keys[this];
   String? get value => values[this];
 }
+
+enum SnackBarMessageType { ERROR, LOADING, INFO }
+
+extension SnackBarMessageTypeExtension on SnackBarMessageType {
+  static const Map<SnackBarMessageType, String> keys = {
+    SnackBarMessageType.ERROR: "Error",
+    SnackBarMessageType.LOADING: "Loading",
+    SnackBarMessageType.INFO: "Info",
+  };
+
+  static const Map<SnackBarMessageType, String> values = {
+    SnackBarMessageType.ERROR: "Error Message",
+    SnackBarMessageType.LOADING: "Loading Message",
+    SnackBarMessageType.INFO: "Info Message",
+  };
+
+  String? get key => keys[this];
+  String? get value => values[this];
+}

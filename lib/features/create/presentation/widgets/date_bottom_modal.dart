@@ -21,77 +21,73 @@ class DateBottomModalWidget extends StatelessWidget {
   final DateTimeEnum dateTimeEnum;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EventDetailsFillCubit, EventDetailsFillState>(
-      builder: (context, state) {
-        return Container(
-          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-          height: height * 0.4,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                dateTimeEnum.value ?? "",
-                style: Typograph.normalStyle,
-              ),
-              DateInputWidget(
-                onTap: () {
-                  DatePicker.showDatePicker(context, onConfirm: (date) {
-                    if (dateTimeEnum.key == DateTimeEnum.EndTime.key) {
-                      context.read<EventDetailsFillCubit>()
-                        ..changeEndDate(myDateFormat(date));
-                    }
-                    context.read<EventDetailsFillCubit>()
-                      ..changeStartDate(myDateFormat(date));
-                  });
-                },
-                // dateTimeEnum: DateTimeEnum.StartDate,
-                dateTimeEnum: dateTimeEnum.key == DateTimeEnum.EndTime.key
-                    ? DateTimeEnum.EndDate
-                    : DateTimeEnum.StartDate,
-              ),
-              DateInputWidget(
-                dateTimeEnum: dateTimeEnum.key == DateTimeEnum.EndTime.key
-                    ? DateTimeEnum.EndTime
-                    : DateTimeEnum.StratTime,
-                onTap: () {
-                  DatePicker.showTime12hPicker(context, onConfirm: (time) {
-                    if (dateTimeEnum.key == DateTimeEnum.EndTime.key) {
-                      context.read<EventDetailsFillCubit>()
-                        ..changeEndTime(myTimeFormat(time));
-                    }
-                    context.read<EventDetailsFillCubit>()
-                      ..changeStartTime(myTimeFormat(time));
-                  });
-                },
-              ),
-              CustomSolidButton(
-                  text: "Save",
-                  height: 40.0,
-                  width: width,
-                  onTap: () {
-                    if (dateTimeEnum.key == DateTimeEnum.EndTime.key) {
-                      if (state.endDate != null && state.endTime != null) {
-                        context.read<EventDetailsFillCubit>()
-                          ..changeEndDateTime(
-                              "${state.endDate}, ${state.endTime}");
-                        Navigator.of(context).pop();
-                      }
-                    } else {
-                      if (state.startDate != null && state.startTime != null) {
-                        context.read<EventDetailsFillCubit>()
-                          ..changeStartDateTime(
-                              "${state.startDate}, ${state.startTime}");
-                        Navigator.of(context).pop();
-                      }
-                    }
-                  },
-                  color: (state.startDate != null && state.startTime != null)
-                      ? Theme.of(context).primaryColor
-                      : Theme.of(context).formBgColor)
-            ],
+    final state = context.watch<EventDetailsFillCubit>().state;
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+      height: height * 0.4,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            dateTimeEnum.value ?? "",
+            style: Typograph.normalStyle,
           ),
-        );
-      },
+          DateInputWidget(
+            onTap: () {
+              DatePicker.showDatePicker(context, onConfirm: (date) {
+                if (dateTimeEnum.key == DateTimeEnum.EndTime.key) {
+                  context.read<EventDetailsFillCubit>()
+                    ..changeEndDate(myDateFormat(date));
+                }
+                context.read<EventDetailsFillCubit>()
+                  ..changeStartDate(myDateFormat(date));
+              });
+            },
+            // dateTimeEnum: DateTimeEnum.StartDate,
+            dateTimeEnum: dateTimeEnum.key == DateTimeEnum.EndTime.key
+                ? DateTimeEnum.EndDate
+                : DateTimeEnum.StartDate,
+          ),
+          DateInputWidget(
+            dateTimeEnum: dateTimeEnum.key == DateTimeEnum.EndTime.key
+                ? DateTimeEnum.EndTime
+                : DateTimeEnum.StratTime,
+            onTap: () {
+              DatePicker.showTime12hPicker(context, onConfirm: (time) {
+                if (dateTimeEnum.key == DateTimeEnum.EndTime.key) {
+                  context.read<EventDetailsFillCubit>()
+                    ..changeEndTime(myTimeFormat(time));
+                }
+                context.read<EventDetailsFillCubit>()
+                  ..changeStartTime(myTimeFormat(time));
+              });
+            },
+          ),
+          CustomSolidButton(
+              text: "Save",
+              height: 40.0,
+              width: width,
+              onTap: () {
+                if (dateTimeEnum.key == DateTimeEnum.EndTime.key) {
+                  if (state.endDate != null && state.endTime != null) {
+                    context.read<EventDetailsFillCubit>()
+                      ..changeEndDateTime("${state.endDate}, ${state.endTime}");
+                    Navigator.of(context).pop();
+                  }
+                } else {
+                  if (state.startDate != null && state.startTime != null) {
+                    context.read<EventDetailsFillCubit>()
+                      ..changeStartDateTime(
+                          "${state.startDate}, ${state.startTime}");
+                    Navigator.of(context).pop();
+                  }
+                }
+              },
+              color: (state.startDate != null && state.startTime != null)
+                  ? Theme.of(context).primaryColor
+                  : Theme.of(context).formBgColor)
+        ],
+      ),
     );
   }
 }

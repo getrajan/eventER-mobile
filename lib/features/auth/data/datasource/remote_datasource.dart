@@ -29,7 +29,7 @@ class IAuthRemoteDataSource implements AuthRemoteDataSource {
         loginResponse.statusCode < 500) {
       final error = jsonDecode(loginResponse.body);
       throw FailException(message: error['message']);
-    } else if (loginResponse.statusCode > 500) {
+    } else if (loginResponse.statusCode >= 500) {
       final error = jsonDecode(loginResponse.body);
       throw ServerException(message: error['message']);
     } else {
